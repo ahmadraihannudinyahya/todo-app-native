@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { Box, Pressable } from 'native-base';
-const Card = ({color = false}) =>{
+
+const Card = ({color = false, title, desc, createdAt}) =>{
   const [theme , setTheme ] = useState({
     backgroundColor : 'grey',
     textColor : '#fff',
-  })
+  });
+  
   const colors = [
     {
       backgroundColor : '#cffafe',
@@ -49,21 +51,21 @@ const Card = ({color = false}) =>{
   return (
     <Pressable onPress = {()=> alert('ok')}>
       <Box style = {Styles.card({themeColor :theme.backgroundColor})} >
-          <Box>
-            <Text style = {Styles.head({themeColor : theme.textColor })}>
-              NativeBase
-            </Text>
-          </Box>
-          <Box>
-            <Text numberOfLines={3} style = {Styles.desc({themeColor : theme.textColor})}>
-            Lorem Ipsum is simply dummy 
-            </Text>
-          </Box>
-          <Box >
-          <Text style = {Styles.date({themeColor : theme? theme.textColor : '#fff'})}>
-              12 january, 2020
-            </Text>
-          </Box>
+        <Box>
+          <Text style = {Styles.head({themeColor : theme.textColor })}>
+            {title}
+          </Text>
+        </Box>
+        <Box>
+          <Text numberOfLines={3} style = {Styles.desc({themeColor : theme.textColor})}>
+          {desc}
+          </Text>
+        </Box>
+        <Box >
+        <Text style = {Styles.date({themeColor : theme? theme.textColor : '#fff'})}>
+            {createdAt}
+          </Text>
+        </Box>
       </Box>
     </Pressable>
   );
