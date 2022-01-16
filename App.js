@@ -1,16 +1,6 @@
 import React from "react";
 import {
-  Text,
-  Link,
-  HStack,
-  Center,
-  Heading,
-  Switch,
-  useColorMode,
   NativeBaseProvider,
-  extendTheme,
-  VStack,
-  Code,
   StatusBar,
 } from "native-base";
 import NativeBaseIcon from "./components/NativeBaseIcon";
@@ -30,4 +20,4 @@ export default function App() {
       <Detail />
     </NativeBaseProvider>
   );
-}
+};
