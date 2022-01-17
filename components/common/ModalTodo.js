@@ -2,10 +2,24 @@ import React, { useEffect, useState } from 'react';
 import {Modal, Button, FormControl, Input} from 'native-base';
 import ApiServices from '../../service/ApiServices';
 
-const ModalTodo = ({showModal = false, setShowModal}) => {
+const ModalTodo = ({showModal = false, setShowModal, todoId = null}) => {
 
   const [title , setTitle] = useState('');
   const [desc , setDesc] = useState('');
+
+  useEffect(()=>{
+    (async ()=> {
+      if(todoId){
+        await fetchTodoData();
+      }
+    })()
+  }, []);
+
+  const fetchTodoData = async () =>{
+    const todoData = await ApiServices.getTodoById(todoId);
+    setTitle(todoData.title);
+    setDesc(todoData.desc);
+  };
 
   const hanleInputTitleChange = (text) =>{
     setTitle(text);
@@ -14,12 +28,14 @@ const ModalTodo = ({showModal = false, setShowModal}) => {
   const hanleInputDescChange = (text) =>{
     setDesc(text);
   };
+
   useEffect(()=>{
     if(!showModal){
       setTitle('');
       setDesc('');
     } 
-  }, [showModal])
+  }, [showModal]);
+
   const handleSaveTodo = async () => {
     (async ()=>{
       const error = await ApiServices.postTodo({
@@ -31,6 +47,17 @@ const ModalTodo = ({showModal = false, setShowModal}) => {
       };
       setShowModal(false);
     })();
+  };
+
+  const handlePatchTodo = async () => {
+    const error = await ApiServices.patchTodo({
+      title : title, 
+      desc : desc, 
+    }, todoId);
+    if(error){
+      return alert(error);
+    };
+    setShowModal(false);
   };
   return(
     <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
@@ -58,7 +85,7 @@ const ModalTodo = ({showModal = false, setShowModal}) => {
             >
               Cancel
             </Button>
-            <Button onPress = {handleSaveTodo}>
+            <Button onPress = {todoId? handlePatchTodo :handleSaveTodo}>
               Save
             </Button>
           </Button.Group>

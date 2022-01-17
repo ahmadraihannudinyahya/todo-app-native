@@ -1,6 +1,13 @@
 {
-  "name": "native-todo-app",
+  "name": "todo-app",
+  "slug": "native-todo-app",
+  "icon": "./assets/icon.png",
   "version": "1.0.0",
+  "android": {
+    "package": "com.yahya.todoApp",
+    "versionCode": 1
+  },
+
   "main": "node_modules/expo/AppEntry.js",
   "keywords": [
     "react",
@@ -17,6 +24,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.0.6",
+    "@react-navigation/stack": "^6.0.11",
     "axios": "^0.24.0",
     "expo": "~42.0.0",
     "expo-status-bar": "~1.0.4",
@@ -29,7 +38,8 @@
     "react-native-svg": "12.1.1",
     "react-native-web": "~0.13.12",
     "styled-components": "^5.3.0",
-    "styled-system": "^5.1.5"
+    "styled-system": "^5.1.5",
+    "react-native-gesture-handler": "~1.10.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

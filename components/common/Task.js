@@ -2,29 +2,29 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Box, HStack, Text, View, Pressable } from 'native-base';
 
-const Task = () => {
+const Task = ({id, task, status, toogleStatusTask, deleteTask, toogleModalTask}) => {
   return(
     <View style = {styles.card}>
-      <Text style = {styles.title}>
-        Task
+      <Text style = {styles.title(status)}>
+        {task}
       </Text>
       <HStack>
         <Box style = {{width : '33%'}}>
-          <Pressable style = {styles.button}>
+          <Pressable style = {styles.button} onPress={ async ()=> await toogleStatusTask(id)}>
             <Text style = {styles.buttonText}>
-              Done  
+              {status === 'onGoing' ? 'Done' : 'Abort'}  
             </Text>
           </Pressable>
         </Box>
         <Box style = {{width : '33%'}}>
-          <Pressable style = {styles.button}>
+          <Pressable style = {styles.button} onPress={()=>toogleModalTask({id, task})}>
             <Text style = {styles.buttonText}>
               Edit
             </Text>
           </Pressable>
         </Box>
         <Box style = {{width : '33%'}}>
-          <Pressable style = {styles.button}>
+          <Pressable style = {styles.button} onPress={ async ()=> await deleteTask(id) }>
             <Text style = {styles.buttonText}>
               Delete
             </Text>
@@ -42,13 +42,15 @@ const styles = StyleSheet.create({
     padding : 10,
     marginBottom : 10
   },
-  title : {
+  title : (status) => {
+    const textDecorationLine = status === 'onGoing' ? 'none' : 'line-through';
+    return ({
     fontSize : 28,
     fontWeight : 'bold',
     paddingTop : 20,
     color : '#fafafa',
-    textDecorationLine : 'line-through'
-  },
+    textDecorationLine,
+  })},
   button : {
     backgroundColor : '#addbff',
     borderRadius : 10,

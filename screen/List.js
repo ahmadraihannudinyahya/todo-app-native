@@ -7,7 +7,7 @@ import ListCard from '../components/ListCard';
 import CardAdd from '../components/common/CardAdd';
 import ModalTodo from '../components/common/ModalTodo';
 
-const List = () => {
+const List = ({navigation}) => {
   const [showModal, setShowModal] = useState(false);
   const [todos, setTodos] = useState([]);
 
@@ -19,11 +19,11 @@ const List = () => {
       }
     })()
   }, [showModal]);
+
   return(
-    <View style = {{ padding : 10 ,paddingTop : 30, backgroundColor : '#1a91ff', minHeight : '100%'}}>
+    <View style = {{ padding : 10, backgroundColor : '#addbff', minHeight : '90%'}}>
       <ScrollView>
-        <HeaderEll />
-        <ListCard todos = {todos}/>
+        <ListCard todos = {todos} navigation = {navigation}/>
         <CardAdd setShowModal= {setShowModal}/>
       </ScrollView>
       <ModalTodo showModal = {showModal} setShowModal= {setShowModal}/>

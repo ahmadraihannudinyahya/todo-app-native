@@ -3,13 +3,10 @@ import { StyleSheet } from 'react-native';
 import { View } from 'native-base';
 import Task from './common/Task';
 
-const TaskList = () =>{
+const TaskList = ({tasks, toogleStatusTask, deleteTask, toogleModalTask}) =>{
   return(
     <View style = {styles.taskList}>
-      <Task />
-      <Task />
-      <Task />
-      <Task />
+      {tasks.map(task => <Task key={task.id} {...task} toogleStatusTask = {toogleStatusTask} deleteTask = {deleteTask} toogleModalTask = {toogleModalTask}/>)}
     </View>
   )
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { Box, Pressable } from 'native-base';
 
-const Card = ({color = false, title, desc, createdAt}) =>{
+const Card = ({color = false, title, desc, createdAt, id, navigation }) =>{
   const [theme , setTheme ] = useState({
     backgroundColor : 'grey',
     textColor : '#fff',
@@ -49,7 +49,7 @@ const Card = ({color = false, title, desc, createdAt}) =>{
   }, []);
 
   return (
-    <Pressable onPress = {()=> alert('ok')}>
+    <Pressable onPress = {()=> navigation.navigate('Detail', {id})}>
       <Box style = {Styles.card({themeColor :theme.backgroundColor})} >
         <Box>
           <Text style = {Styles.head({themeColor : theme.textColor })}>

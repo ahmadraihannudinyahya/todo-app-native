@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useEffect , useState} from 'react';
 import { StyleSheet } from 'react-native';
 import { Box, HStack, ScrollView, Text, View, Pressable } from 'native-base';
+import ApiServices from '../service/ApiServices';
 
-const DetailTodo = () =>{
-  const todo = {
-    createdAt: "Saturday, 15 January 2022",
-    desc: "Todo App Taskin Native app, Task From Dumbways Id",
-    id: "todos-16422174791941",
-    title: "Todo App Task",
+const DetailTodo = ({todoId, todo , navigation, toogleModalTask, toogleModalTodo}) =>{
+
+  const deleteTodo = async () =>{
+    await ApiServices.deleteTodoById(todoId);
+    navigation.pop();
   };
+
   return (
-    <View style = {styles.card}>
+    <>
+    {todo ? <View style = {styles.card}>
       <Text style = {styles.title}>
         {todo.title}
       </Text>
@@ -19,14 +21,14 @@ const DetailTodo = () =>{
       </Text>
       <HStack>
         <Box style = {{ width : '50%'}}>
-          <Pressable style = {styles.button}>
+          <Pressable style = {styles.button} onPress={()=>toogleModalTodo(true)}>
             <Text style = {styles.buttonText}>
               Edit
             </Text>
           </Pressable>
         </Box>
         <Box style = {{ width : '50%'}}>
-          <Pressable style = {styles.button}>
+          <Pressable style = {styles.button} onPress={deleteTodo}>
             <Text style = {styles.buttonText}>
               Delete
             </Text>
@@ -34,13 +36,14 @@ const DetailTodo = () =>{
         </Box>
       </HStack>
       <Box style = {{ width : '100%'}}>
-          <Pressable style = {styles.button}>
+          <Pressable style = {styles.button} onPress={()=>toogleModalTask(true)}>
             <Text style = {styles.buttonText}>
               Add Task
             </Text>
           </Pressable>
         </Box>
-    </View>
+    </View> : <View><Text>Loading ...</Text></View>}
+    </>
   )
 }
 
